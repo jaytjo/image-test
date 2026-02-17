@@ -3,25 +3,232 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Daily inspirational quotes to motivate and inspire you. Get your daily dose of wisdom from great minds.">
+  <meta name="theme-color" content="#0f0f0f">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Daily Inspiration - Inspirational Quotes">
+  <meta property="og:description" content="Daily inspirational quotes to motivate and inspire you.">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Daily Inspiration - Inspirational Quotes">
+  <meta name="twitter:description" content="Daily inspirational quotes to motivate and inspire you.">
+  
   <title>Daily Inspiration</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:system-ui,sans-serif;background:#0f0f0f;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
-    .card{text-align:center;max-width:600px}
-    .quote{font-size:1.5rem;line-height:1.6;margin-bottom:1rem;color:#e0e0e0}
-    .author{color:#00d4ff;font-size:1.1rem}
-    .date{color:#666;margin-top:2rem;font-size:0.9rem}
-    .btn{background:#222;border:1px solid #444;color:#888;padding:0.5rem 1rem;margin-top:1.5rem;border-radius:6px;cursor:pointer;font-size:0.9rem;transition:all 0.2s}
-    .btn:hover{background:#333;color:#fff;border-color:#00d4ff}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+      background:linear-gradient(135deg,#0f0f0f 0%,#1a1a2e 100%);
+      color:#fff;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:1rem;
+      position:relative;
+      overflow-x:hidden
+    }
+    body::before{
+      content:'';
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:radial-gradient(circle at 20% 50%,rgba(0,212,255,0.1) 0%,transparent 50%),
+                  radial-gradient(circle at 80% 80%,rgba(0,212,255,0.05) 0%,transparent 50%);
+      pointer-events:none;
+      z-index:0
+    }
+    .card{
+      text-align:center;
+      max-width:700px;
+      width:100%;
+      background:rgba(255,255,255,0.03);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:20px;
+      padding:3rem 2rem;
+      box-shadow:0 20px 60px rgba(0,0,0,0.5);
+      position:relative;
+      z-index:1;
+      transition:transform 0.3s ease,box-shadow 0.3s ease
+    }
+    .card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 25px 70px rgba(0,212,255,0.2)
+    }
+    .quote-container{
+      min-height:200px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      margin-bottom:2rem
+    }
+    .quote{
+      font-size:clamp(1.25rem,4vw,1.75rem);
+      line-height:1.7;
+      margin-bottom:1.5rem;
+      color:#f0f0f0;
+      font-weight:400;
+      opacity:0;
+      transform:translateY(20px);
+      transition:opacity 0.5s ease,transform 0.5s ease
+    }
+    .quote.fade-in{
+      opacity:1;
+      transform:translateY(0)
+    }
+    .author{
+      color:#00d4ff;
+      font-size:clamp(1rem,3vw,1.2rem);
+      font-weight:500;
+      opacity:0;
+      transform:translateY(20px);
+      transition:opacity 0.5s ease 0.2s,transform 0.5s ease 0.2s
+    }
+    .author.fade-in{
+      opacity:1;
+      transform:translateY(0)
+    }
+    .date{
+      color:#888;
+      margin-top:2rem;
+      font-size:0.9rem;
+      opacity:0.7
+    }
+    .button-group{
+      display:flex;
+      gap:1rem;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:2rem
+    }
+    .btn{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      color:#ccc;
+      padding:0.75rem 1.5rem;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:0.95rem;
+      font-weight:500;
+      transition:all 0.3s ease;
+      position:relative;
+      overflow:hidden;
+      min-width:120px
+    }
+    .btn::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:-100%;
+      width:100%;
+      height:100%;
+      background:linear-gradient(90deg,transparent,rgba(0,212,255,0.2),transparent);
+      transition:left 0.5s ease
+    }
+    .btn:hover::before{
+      left:100%
+    }
+    .btn:hover{
+      background:rgba(0,212,255,0.1);
+      color:#00d4ff;
+      border-color:#00d4ff;
+      transform:translateY(-2px);
+      box-shadow:0 5px 15px rgba(0,212,255,0.3)
+    }
+    .btn:active{
+      transform:translateY(0)
+    }
+    .btn:focus{
+      outline:2px solid #00d4ff;
+      outline-offset:2px
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,#00d4ff,#0099cc);
+      color:#fff;
+      border-color:#00d4ff
+    }
+    .btn-primary:hover{
+      background:linear-gradient(135deg,#00e5ff,#00aadd);
+      box-shadow:0 5px 20px rgba(0,212,255,0.4)
+    }
+    .toast{
+      position:fixed;
+      bottom:2rem;
+      left:50%;
+      transform:translateX(-50%) translateY(100px);
+      background:rgba(0,212,255,0.9);
+      color:#fff;
+      padding:1rem 2rem;
+      border-radius:10px;
+      box-shadow:0 10px 30px rgba(0,212,255,0.3);
+      opacity:0;
+      transition:all 0.3s ease;
+      z-index:1000;
+      pointer-events:none
+    }
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0)
+    }
+    .keyboard-hint{
+      color:#666;
+      font-size:0.8rem;
+      margin-top:1rem;
+      opacity:0.6
+    }
+    @media (max-width:600px){
+      .card{
+        padding:2rem 1.5rem
+      }
+      .quote-container{
+        min-height:150px
+      }
+      .button-group{
+        flex-direction:column;
+        align-items:stretch
+      }
+      .btn{
+        width:100%
+      }
+    }
+    @media (prefers-reduced-motion:reduce){
+      *,.quote,.author,.btn,.toast{
+        transition:none!important;
+        animation:none!important
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <p class="quote" id="q"></p>
-    <p class="author" id="a"></p>
-    <p class="date" id="d"></p>
-    <button class="btn" onclick="nextQuote()">Next Quote →</button>
+  <div class="card" role="main" aria-label="Inspirational quote display">
+    <div class="quote-container">
+      <p class="quote" id="q" aria-live="polite"></p>
+      <p class="author" id="a" aria-label="Quote author"></p>
+    </div>
+    <p class="date" id="d" aria-label="Current date"></p>
+    <div class="button-group">
+      <button class="btn btn-primary" onclick="nextQuote()" aria-label="Next quote">
+        Next Quote →
+      </button>
+      <button class="btn" onclick="randomQuote()" aria-label="Random quote">
+        🎲 Random
+      </button>
+      <button class="btn" onclick="copyQuote()" aria-label="Copy quote to clipboard">
+        📋 Copy
+      </button>
+    </div>
+    <p class="keyboard-hint" aria-hidden="true">
+      Press ← → arrow keys or spacebar to navigate
+    </p>
   </div>
+  <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+  
   <script>
     const q=[
       {t:"The only way to do great work is to love what you do.",a:"Steve Jobs"},
@@ -61,11 +268,109 @@
       {t:"If you want to live a happy life, tie it to a goal, not to people or things.",a:"Albert Einstein"},
       {t:"Never let the fear of striking out keep you from playing the game.",a:"Babe Ruth"}
     ];
+    
     let i=new Date().getDay();
-    function show(){document.getElementById('q').textContent=q[i].t;document.getElementById('a').textContent='— '+q[i].a}
-    function nextQuote(){i=(i+1)%q.length;show()}
-    show();
-    document.getElementById('d').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    let isTransitioning=false;
+    
+    function showQuote(animate=true){
+      if(isTransitioning)return;
+      isTransitioning=true;
+      
+      const quoteEl=document.getElementById('q');
+      const authorEl=document.getElementById('a');
+      
+      if(animate){
+        quoteEl.classList.remove('fade-in');
+        authorEl.classList.remove('fade-in');
+        
+        setTimeout(()=>{
+          quoteEl.textContent=q[i].t;
+          authorEl.textContent='— '+q[i].a;
+          quoteEl.classList.add('fade-in');
+          authorEl.classList.add('fade-in');
+          isTransitioning=false;
+        },250);
+      }else{
+        quoteEl.textContent=q[i].t;
+        authorEl.textContent='— '+q[i].a;
+        quoteEl.classList.add('fade-in');
+        authorEl.classList.add('fade-in');
+        isTransitioning=false;
+      }
+    }
+    
+    function nextQuote(){
+      i=(i+1)%q.length;
+      showQuote();
+    }
+    
+    function prevQuote(){
+      i=(i-1+q.length)%q.length;
+      showQuote();
+    }
+    
+    function randomQuote(){
+      let newIndex;
+      do{
+        newIndex=Math.floor(Math.random()*q.length);
+      }while(newIndex===i&&q.length>1);
+      i=newIndex;
+      showQuote();
+    }
+    
+    function copyQuote(){
+      const text=`"${q[i].t}" — ${q[i].a}`;
+      navigator.clipboard.writeText(text).then(()=>{
+        showToast('Quote copied to clipboard!');
+      }).catch(()=>{
+        const textarea=document.createElement('textarea');
+        textarea.value=text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast('Quote copied to clipboard!');
+      });
+    }
+    
+    function showToast(message){
+      const toast=document.getElementById('toast');
+      toast.textContent=message;
+      toast.classList.add('show');
+      setTimeout(()=>{
+        toast.classList.remove('show');
+      },2000);
+    }
+    
+    document.addEventListener('keydown',(e)=>{
+      if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+      
+      switch(e.key){
+        case'ArrowRight':
+        case' ':
+          e.preventDefault();
+          nextQuote();
+          break;
+        case'ArrowLeft':
+          e.preventDefault();
+          prevQuote();
+          break;
+        case'r':
+        case'R':
+          if(e.ctrlKey||e.metaKey)return;
+          e.preventDefault();
+          randomQuote();
+          break;
+      }
+    });
+    
+    showQuote(false);
+    document.getElementById('d').textContent=new Date().toLocaleDateString('en-US',{
+      weekday:'long',
+      year:'numeric',
+      month:'long',
+      day:'numeric'
+    });
   </script>
 </body>
 </html>
