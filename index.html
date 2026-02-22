@@ -4,21 +4,36 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Random Image</title>
+    <meta
+      name="description"
+      content="A minimal static site that loads a new random image with one click."
+    />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://picsum.photos" />
   </head>
   <body>
     <main class="wrap">
       <h1>Random Image</h1>
       <p class="hint">Click "Random" to load a new image.</p>
       <div class="viewer">
-        <img id="mainImage" src="https://picsum.photos/900/600" alt="Loading…" />
+        <span class="loader" aria-hidden="true"></span>
+        <img
+          id="mainImage"
+          src="https://picsum.photos/900/600"
+          alt="Loading…"
+          decoding="async"
+        />
       </div>
       <div class="controls">
-        <button id="randomBtn" type="button">Random</button>
+        <button id="randomBtn" type="button" aria-controls="mainImage">Random</button>
         <button id="retryBtn" type="button" class="retry-btn" hidden>Retry</button>
       </div>
+      <p id="status" class="status" role="status" aria-live="polite">Ready.</p>
       <p class="small">Static site — ready for GitHub Pages.</p>
     </main>
+    <noscript>
+      <p class="noscript">This page needs JavaScript to load random images.</p>
+    </noscript>
     <script src="js/app.js" defer></script>
   </body>
 </html>

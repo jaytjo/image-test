@@ -65,6 +65,7 @@ h1 {
   padding: 12px;
   border-radius: var(--radius);
   min-height: 200px;
+  position: relative;
 }
 
 .viewer img {
@@ -75,6 +76,22 @@ h1 {
   opacity: 0;
   transform: scale(0.995);
   transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.loader {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(56, 189, 248, 0.25);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  animation: spin 0.9s linear infinite;
+}
+
+.viewer.loading .loader {
+  opacity: 1;
 }
 
 .viewer img.visible {
@@ -125,9 +142,31 @@ h1 {
   margin-top: 12px;
 }
 
+.status {
+  color: var(--muted);
+  margin-top: 10px;
+  font-size: 14px;
+  min-height: 20px;
+}
+
+.noscript {
+  color: var(--muted);
+  text-align: center;
+  padding: 8px 12px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .viewer img {
     transition: none;
+  }
+  .loader {
+    animation: none;
   }
 }
