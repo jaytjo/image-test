@@ -1,19 +1,43 @@
-// Minimal JS: load a seeded random image from picsum on each click
-(function(){
-  const btn = document.getElementById('randomBtn');
-  const img = document.getElementById('mainImage');
+/**
+ * Random Image — loads a new Picsum photo on each "Random" click.
+ */
+(function () {
+  const PICSUM_BASE = "https://picsum.photos";
+  const IMAGE_WIDTH = 900;
+  const IMAGE_HEIGHT = 600;
 
-  function setRandomImage(){
+  const btn = document.getElementById("randomBtn");
+  const img = document.getElementById("mainImage");
+
+  if (!btn || !img) return;
+
+  function buildImageUrl(seed) {
+    return `${PICSUM_BASE}/seed/${seed}/${IMAGE_WIDTH}/${IMAGE_HEIGHT}`;
+  }
+
+  function setLoading(loading) {
+    btn.setAttribute("aria-busy", loading ? "true" : "false");
+  }
+
+  function showImage() {
+    img.classList.remove("visible");
+    setLoading(true);
+
+    img.onload = function () {
+      img.classList.add("visible");
+      setLoading(false);
+    };
+
+    img.onerror = function () {
+      setLoading(false);
+      img.alt = "Failed to load image. Try again.";
+    };
+
     const seed = Math.floor(Math.random() * 1e9);
-    const url = `https://picsum.photos/seed/${seed}/900/600`;
-    if(!img) return;
-    img.classList.remove('visible');
-    img.onload = () => img.classList.add('visible');
-    img.src = url;
+    img.alt = `Random image ${seed}`;
+    img.src = buildImageUrl(seed);
   }
 
-  if(btn && img){
-    btn.addEventListener('click', setRandomImage);
-    setRandomImage();
-  }
+  btn.addEventListener("click", showImage);
+  showImage();
 })();
