@@ -89,6 +89,11 @@
   let i = (new Date().getDate()) % q.length;
   let isTransitioning = false;
 
+  // map specific authors to local images (place files under /images/)
+  const AUTHOR_IMAGES = {
+    'Thomas Jefferson': 'images/thomas-jefferson.jpg'
+  };
+
   function getImageQuery(entry){
     if(!entry || !entry.t) return 'inspiration';
     const stop = new Set(['the','a','an','and','or','to','of','in','is','that','you','your','we','be','are','it','for','on','with','as','by','from','this','do','not','but','at','our','have','has','i','me']);
@@ -102,11 +107,21 @@
     const img = document.getElementById('qImg');
     if(!img) return;
     const query = getImageQuery(entry);
-    const src = `https://source.unsplash.com/800x450/?${encodeURIComponent(query)}&sig=${index}`;
+    const unsplash = `https://source.unsplash.com/800x450/?${encodeURIComponent(query)}&sig=${index}`;
     img.classList.remove('fade-in');
     img.alt = entry && entry.a ? `Image for quote by ${entry.a}` : 'Inspirational image';
-    img.src = src;
+
+    // If we have a mapped local image for the author, try it first.
+    const local = entry && entry.a && AUTHOR_IMAGES[entry.a] ? AUTHOR_IMAGES[entry.a] : null;
+
     img.onload = ()=>{ img.classList.add('fade-in'); };
+    img.onerror = function(){
+      // on error, try Unsplash
+      img.onerror = null;
+      img.src = unsplash;
+    };
+
+    img.src = local || unsplash;
   }
 
   function showQuote(animate=true){
