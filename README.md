@@ -40,14 +40,37 @@ npx serve . -p 8000
 # then open http://localhost:8000
 ```
 
-## Images / Attribution
+# Random Image (Static Site)
 
-- Images are fetched from Unsplash Source (https://source.unsplash.com). This is a public image endpoint that does not require an API key but follows Unsplash's terms — please add attribution in your site or repo if you curate specific images.
+This is a minimal static website that displays a random image each time you click the "Random" button.
 
-## Contributing
+Files
+- `index.html` — markup and button
+- `css/styles.css` — styles
+- `js/app.js` — tiny client-side logic that loads a new image on click
 
-- To add or edit quotes, update `js/app.js` and submit a PR. Keep entries short and attribute the author.
+How it works
+- The site requests seeded images from Picsum (https://picsum.photos). Each click generates a new random seed, so the returned image is different.
 
-## License
+Deploy to GitHub Pages
 
-MIT
+1. Commit and push the `image-test` folder to a repository on GitHub.
+2. In the repository Settings → Pages, set the source to the `main` branch (or `gh-pages` branch) and the root folder `/`.
+3. Wait a minute and your site will be available at `https://<your-username>.github.io/<repo-name>/`.
+
+Preview locally
+
+```bash
+# from the `image-test` folder
+python3 -m http.server 8000
+# or with Node.js
+npx serve . -p 8000
+
+# then open http://localhost:8000
+```
+
+Notes
+- No backend or API keys required — images are fetched from an external image service.
+- This repository is intentionally small and ready for Pages hosting.
+
+License: MIT
