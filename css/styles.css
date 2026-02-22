@@ -48,16 +48,6 @@ body::before{
   justify-content:center;
   margin-bottom:2rem
 }
-.quote-image{
-  width:100%;
-  height:auto;
-  border-radius:12px;
-  margin-bottom:1rem;
-  opacity:0;
-  transform:translateY(10px);
-  transition:opacity 0.5s ease,transform 0.5s ease;
-}
-.quote-image.fade-in{opacity:1;transform:translateY(0)}
 .quote{
   font-size:clamp(1.25rem,4vw,1.75rem);
   line-height:1.7;
