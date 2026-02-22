@@ -22,13 +22,13 @@ python3 -m http.server 8000
 npx serve . -p 8000
 ```
 
-Then open http://localhost:8000
+Then open [http://localhost:8000](http://localhost:8000)
 
 ## Deploy (e.g. GitHub Pages)
 
 1. Push this repo to GitHub.
 2. **Settings → Pages** → set source to the `main` branch (root `/`).
-3. Optional: add an empty `.nojekyll` at the repo root so Pages serves files as-is.
+3. An empty `.nojekyll` at the repo root is included so Pages serves files as-is.
 
 Your site will be at `https://<username>.github.io/image-test/`.
 

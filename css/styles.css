@@ -113,7 +113,8 @@ h1 {
   outline-offset: 2px;
 }
 
-.controls button[aria-busy="true"] {
+.controls button[aria-busy="true"],
+.controls button:disabled {
   opacity: 0.8;
   cursor: wait;
 }
