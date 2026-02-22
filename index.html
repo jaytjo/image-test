@@ -11,7 +11,7 @@
       <h1>Random Image</h1>
       <p class="hint">Click "Random" to load a new image.</p>
       <div class="viewer">
-        <img id="mainImage" alt="Random visual" src=""/>
+        <img id="mainImage" alt="Random visual" src="">
       </div>
       <div class="controls">
         <button id="randomBtn" type="button">Random</button>
@@ -20,48 +20,4 @@
     </main>
     <script src="js/app.js" defer></script>
   </body>
- </html>
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Daily Inspiration - Inspirational Quotes">
-  <meta property="og:description" content="Daily inspirational quotes to motivate and inspire you.">
-  
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Daily Inspiration - Inspirational Quotes">
-  <meta name="twitter:description" content="Daily inspirational quotes to motivate and inspire you.">
-  
-  <title>Daily Inspiration</title>
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <main class="card" aria-label="Inspirational quote display">
-    <div class="quote-container">
-      <figure>
-        <blockquote>
-          <p class="quote" id="q" aria-live="polite" aria-atomic="true">Loading quote...</p>
-        </blockquote>
-        <figcaption class="author" id="a" aria-label="Quote author"></figcaption>
-      </figure>
-    </div>
-    <p class="date" id="d" aria-label="Current date"></p>
-    <div class="button-group">
-      <button class="btn btn-primary" id="nextBtn" type="button" aria-label="Next quote">
-        Next Quote →
-      </button>
-      <button class="btn" id="randomBtn" type="button" aria-label="Random quote">
-        🎲 Random
-      </button>
-      <button class="btn" id="copyBtn" type="button" aria-label="Copy quote to clipboard">
-        📋 Copy
-      </button>
-    </div>
-    <p class="keyboard-hint" aria-hidden="true">
-      Press ← → arrow keys or spacebar to navigate
-    </p>
-  </main>
-  <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
-  <script src="js/app.js" defer></script>
-</body>
 </html>
