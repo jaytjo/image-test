@@ -1,3 +1,5 @@
+test
+
 # Random Image
 
 A minimal static site that shows a random image each time you click **Random**. No backend or API keys — images come from [Picsum Photos](https://picsum.photos).
